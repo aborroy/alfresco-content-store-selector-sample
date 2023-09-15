@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+ 
+ <bean id="siteContentStore" class="org.alfresco.repo.content.filestore.FileContentStore">
+    <constructor-arg>
+       <value>${dir.root}/site</value>
+    </constructor-arg>
+ </bean>
+
+ <bean id="storeSelectorContentStore" parent="storeSelectorContentStoreBase">
+    <property name="defaultStoreName">
+       <value>default</value>
+    </property>
+    <property name="storesByName">
+       <map>
+          <entry key="default">
+              <ref bean="fileContentStore" />
+          </entry>
+          <entry key="siteStore">
+              <ref bean="siteContentStore" />
+          </entry>
+      </map>
+    </property>
+ </bean> 
+
+ <bean id="contentService" parent="baseContentService">
+    <property name="store">
+        <ref bean="storeSelectorContentStore" />
+    </property>
+ </bean> 
+
+</beans>        

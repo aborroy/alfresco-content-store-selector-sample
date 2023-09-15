@@ -1,0 +1,26 @@
+<alfresco-config>
+   <config evaluator="node-type" condition="cm:content">
+      <forms>
+         <form>
+
+            <field-visibility>
+            <!-- aspect: cm:storeSelector -->
+            <show id="cm:storeName" />
+
+            </field-visibility>
+            <appearance>
+               <!-- Store Selector -->
+               <field id="cm:storeName" label="Store Name" description="Content Store Name" />
+            </appearance>
+         </form>
+      </forms>
+   </config>
+   <config evaluator="string-compare" condition="DocumentLibrary" replace="true">
+     <aspects>
+         <!-- Aspects that a user can see -->
+         <visible>
+            <aspect name="cm:storeSelector" />
+         </visible>
+     </aspects>
+   </config>	
+</alfresco-config>	
